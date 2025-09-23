@@ -11,4 +11,4 @@ YOLO_file = hf_hub_download(repo_id="Kareem-404/dental-diagnosis-and-treatment",
 model = YOLO(YOLO_file)
 
 def teeth_detection(images: list[np.array]) -> ultralytics.engine.results.Results:
-    return model.predict(images)
+    return model.predict(images, device='cpu')
