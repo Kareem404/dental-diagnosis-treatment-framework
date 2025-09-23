@@ -38,7 +38,7 @@ def get_model():
                                 filename="best_ckpt.pth", 
                                 token=hf_token)
     
-    ckpt = torch.load(ckpt_best)
+    ckpt = torch.load(ckpt_best, map_location='cpu')
     model = CompleteModel(cropped_image_model_file=cropped_image_model_file, sub_image_model_file=sub_image_model_file)
     model_state_dict = ckpt["model_state_dict"]
     model.load_state_dict(model_state_dict)
