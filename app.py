@@ -68,7 +68,3 @@ async def infer_image(
         output[image.filename] = base64.b64encode(buffer.getvalue()).decode('utf-8')
 
     return output
-
-
-if __name__ == 'main':
-    uvicorn.run(app, host='0.0.0.0', port=80) # run app in http port 80
