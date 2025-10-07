@@ -48,7 +48,8 @@ async def infer_image(
         # apply preprocessing to get coords
         img_data, boxes = preprocess_image(image=np_image, boxes=teeth_coords.obb.xywhr)
 
-        if not boxes:
+        # if there are no detected bounding box
+        if len(boxes) == 0:
             output[image.filename] = base64encoding(np_image)
             continue
 
