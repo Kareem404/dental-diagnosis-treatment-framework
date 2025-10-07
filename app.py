@@ -48,6 +48,10 @@ async def infer_image(
 
         # apply preprocessing to get coords
         img_data, boxes = preprocess_image(image=np_image, boxes=teeth_coords.obb.xywhr)
+        
+        if not boxes:
+            output[image.filename] = "No issues detected"
+            continue
 
         x, y, w, h, r = zip(*boxes)
 
