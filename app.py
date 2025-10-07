@@ -4,9 +4,8 @@ import numpy as np
 from detection import teeth_detection
 import torch
 from preprocess import preprocess_image
-from utils import get_model, process_prediction, byte_to_pixels, draw_bboxes
+from utils import get_model, process_prediction, byte_to_pixels, draw_bboxes, base64encoding
 from fastapi.middleware.cors import CORSMiddleware
-import base64
 from PIL import Image
 import io
 
@@ -48,9 +47,9 @@ async def infer_image(
 
         # apply preprocessing to get coords
         img_data, boxes = preprocess_image(image=np_image, boxes=teeth_coords.obb.xywhr)
-        
+
         if not boxes:
-            output[image.filename] = "No issues detected"
+            output[image.filename] = base64encoding(np_image)
             continue
 
         x, y, w, h, r = zip(*boxes)
@@ -64,11 +63,6 @@ async def infer_image(
             # annotate image
             output_image = draw_bboxes(np_image, x, y, w, h, r, conditions=conditions, treatments=treatments)
         
-        pil_image = Image.fromarray(output_image)
-        buffer = io.BytesIO()
-        pil_image.save(buffer, format='PNG')
-        buffer.seek(0)
-
-        output[image.filename] = base64.b64encode(buffer.getvalue()).decode('utf-8')
+        output[image.filename] = base64encoding(output_image)
 
     return output
