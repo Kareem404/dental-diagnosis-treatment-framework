@@ -8,6 +8,7 @@ import math
 import random
 from huggingface_hub import hf_hub_download
 import os
+import base64
 
 hf_token = os.getenv('access_token')
 
@@ -52,6 +53,13 @@ def process_prediction(logits):
     treatment_preds = list(map(lambda x: treatments[x], treatment_argmax))
     return condition_preds, treatment_preds
 
+
+def base64encoding(image: np.array) -> str:
+    pil_image = Image.fromarray(image)
+    buffer = io.BytesIO()
+    pil_image.save(buffer, format='PNG')
+    buffer.seek(0)
+    return base64.b64encode(buffer.getvalue()).decode('utf-8')
 
 def draw_rotated_box_opencv(image, x_percent, y_percent, width_percent, height_percent, rotation_degrees, color=(0, 255, 0), thickness=7, label=None):
     """
@@ -168,3 +176,4 @@ def draw_bboxes(
         )
 
     return annotated
+
