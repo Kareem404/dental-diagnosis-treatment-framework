@@ -22,7 +22,7 @@ pip install -r requirements.txt
 ```
 Second, run using uvicorn:
 ```
-uvicorn aoo:app --host 0.0.0.0 --port 8000
+uvicorn app:app --host 0.0.0.0 --port 8000
 ````
 This runs the application at `http://localhost:8000`. 
 ## 2.2 🐋 Run as Docker Container
