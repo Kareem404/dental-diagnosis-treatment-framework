@@ -16,7 +16,7 @@ git clone https://github.com/Kareem404/dental-diagnosis-treatment-framework.git
 ```
 After cloning the repo, you could run the API as a FastAPI application using uvicorn or as a docker container. 
 ## 2.1 Run as FastAPI App
-To run the application as a FastAPI application. First, install the requirements file:
+To run the application as a FastAPI application. First, install the requirements:
 ```
 pip install -r requirements.txt
 ```
